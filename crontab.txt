@@ -1,0 +1,1 @@
+* * * * * sh /app/scripts/test.sh > /var/log/output.log
