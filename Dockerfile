@@ -16,7 +16,7 @@ RUN /usr/bin/crontab /crontab.txt
 # Add Packages
 RUN apk update && apk upgrade
 RUN apk add --no-cache \
-  sqlite
+  sqlite \
   rsync
 
 # forward script logs to docker log collector
