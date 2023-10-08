@@ -10,7 +10,7 @@ WORKDIR /app
 ADD crontab.txt /crontab.txt
 ADD scripts/ /app/scripts/
 
-RUN chmod 755 /app/scripts/entry.sh
+RUN chmod -R 755 /app/scripts/
 RUN /usr/bin/crontab /crontab.txt
 
 # Add Packages
