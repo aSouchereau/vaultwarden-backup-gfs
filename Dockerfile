@@ -13,6 +13,12 @@ ADD scripts/ /app/scripts/
 RUN chmod 755 /app/scripts/entry.sh
 RUN /usr/bin/crontab /crontab.txt
 
+# Add Packages
+RUN apk update && apk upgrade
+RUN apk add --no-cache \
+  sqlite
+  rsync
+
 # forward script logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/output.log
 
