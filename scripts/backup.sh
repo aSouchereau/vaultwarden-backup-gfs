@@ -28,9 +28,11 @@ function clear_dir() {
 }
 
 function backup_sqlite() {
+    echo "creating sqlite online backup"
     sqlite3 "${BACKUP_DIR}/db.sqlite3" ".backup '${TMP_SQLITE_DB_FILENAME}'"
+    echo "checking backup integrity"
     if sqlite3 "${TMP_SQLITE_DB_FILENAME}" "pragma integrity_check;"; then
-        echo "sqlite db file integrity ok"
+        echo "sqlite online backup finished successfully"
     else
         echo "Backup canceled: database file failed integrity check"
 
@@ -47,10 +49,11 @@ function backup_files() {
 function package() {
     echo "packaging backup"
     tar -cf "${OUTPUT_DIR}/${NOW}_vw-data.tar" -C "${INPUT_DIR}" .
+    echo "backup process complete"
 }
 
 function cleanup() {
-    echo "running cleanup script"
+    echo "running cleanup"
     sh /app/scripts/cleanup.sh
 }
 
