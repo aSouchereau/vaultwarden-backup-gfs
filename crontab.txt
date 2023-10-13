@@ -1,1 +1,1 @@
-* * * * * sh /app/scripts/test.sh > /var/log/output.log
+* * * * * sh /app/scripts/backup.sh > /var/log/output.log
