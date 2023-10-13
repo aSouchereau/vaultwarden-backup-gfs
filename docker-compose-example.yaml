@@ -17,7 +17,7 @@ services:
     image: aSouchereau/docker-vaultwarden-backup:latest
     restart: always
     volumes:
-      - vw-data:/bitwarden/data/
+      - vw-data:/vaultwarden/data/
     #   - /path/to/env:/.env
 
 volumes:
