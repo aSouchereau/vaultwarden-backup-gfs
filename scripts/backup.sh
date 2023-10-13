@@ -3,13 +3,13 @@ function init() {
     # useful directories
     BACKUP_DIR=/vaultwarden/data
     INPUT_DIR=/app/input
-    OUTPUT_DIR=/app/output
+    export OUTPUT_DIR=/app/output
 
     if [ ! -d "$OUTPUT_DIR" ] ; then
         mkdir "${OUTPUT_DIR}"
     fi
 
-    NOW="$(date "+%Y-%m-%d")"
+    export NOW="$(date "+%Y-%m-%d")"
 
     TMP_SQLITE_DB_FILENAME="${INPUT_DIR}/db.${NOW}.sqlite3"
 }
