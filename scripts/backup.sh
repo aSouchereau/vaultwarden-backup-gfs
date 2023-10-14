@@ -1,5 +1,8 @@
 #!/bin/sh
 
+##### Args
+# 1. Backup type (GFS system) "daily", "weekly", "monthly"
+
 function init() {
     export BACKUP_TYPE=$1
 
