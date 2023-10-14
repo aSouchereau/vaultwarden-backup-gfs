@@ -1,17 +1,23 @@
+#!/bin/sh
+
 function init() {
+    export BACKUP_TYPE=$1
 
     # useful directories
     BACKUP_DIR=/vaultwarden/data
     INPUT_DIR=/app/input
-    export OUTPUT_DIR=/app/output
-
-    if [ ! -d "$OUTPUT_DIR" ] ; then
-        mkdir "${OUTPUT_DIR}"
-    fi
+    export OUTPUT_DIR=/app/output/$BACKUP_TYPE
 
     export NOW="$(date "+%Y-%m-%d")"
-
     TMP_SQLITE_DB_FILENAME="${INPUT_DIR}/db.${NOW}.sqlite3"
+
+    if [ ! -d "$OUTPUT_DIR" ] ; then
+        mkdir -p "${OUTPUT_DIR}"
+    fi
+
+    printf -- '-%.0s' $(seq 50); echo ""
+    echo "Running ${BACKUP_TYPE} backup at $(date)"
+    printf -- '-%.0s' $(seq 50); echo ""
 }
 
 function clear_dir() {
@@ -57,7 +63,7 @@ function cleanup() {
     sh /app/scripts/cleanup.sh
 }
 
-init
+init "$1"
 clear_dir
 
 backup_sqlite
@@ -65,3 +71,5 @@ backup_files
 
 package
 cleanup
+
+echo
