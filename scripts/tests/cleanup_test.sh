@@ -4,7 +4,7 @@
 
 # WARNING: This script will affect data in the output folder. Do not use it in production
 
-# As a safety precaution, this script will only run when the global env variable TEST_LOCK is set to "unlocked", and the first argument passed set to "DELETEMYDATA".
+# As a safety precaution, this script will only run when the APP_ENV is set to "dev", and the first argument passed set to "DELETEMYDATA".
 
 OUTPUT_DIR=/app/output
 
@@ -16,7 +16,7 @@ function clear_output() {
     mkdir "${OUTPUT_DIR}/monthly"
 }
 
-if [ "$TEST_LOCK" = "unlocked" ] && [ "$1" = "DELETEMYDATA" ]; then
+if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
     clear_output
 
     while IFS= read -r filename; do
