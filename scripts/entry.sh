@@ -2,8 +2,8 @@
 
 # populate output for dev testing
 if [ "$APP_ENV" = "dev" ] && [ "$POPULATE_OUTPUT_ON_START" = true ]; then
-    cd /app/scripts/tests
-    sh cleanup_test.sh DELETEMYDATA
+    cd /app/scripts/dev
+    sh populate_output.sh DELETEMYDATA
 fi
 
 # start cron
