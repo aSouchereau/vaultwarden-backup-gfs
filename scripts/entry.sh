@@ -11,6 +11,7 @@ if [ "$APP_ENV" = "dev" ] && [ "$POPULATE_OUTPUT_ON_START" = true ]; then
     sh populate_output.sh DELETEMYDATA
 fi
 
+# load correct cron schedules depending on environment
 if [ "$APP_ENV" = "dev" ]; then
     echo "Loading development crontab schedules"
     /usr/bin/crontab /crontab-dev.txt

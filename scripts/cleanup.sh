@@ -6,12 +6,18 @@ DAILY_RETENTION=$(($DAILY_RETENTION * 86400))   # Keep daily backups for 30 days
 WEEKLY_RETENTION=30  # Keep weekly backups for 30 days
 MONTHLY_RETENTION=60 # Keep monthly backups for 60 days
 
+if [ "$APP_ENV" = "dev" ]; then
+    NOW=1697457600 # 2023-10-16 1200hr GMT
+else
+    NOW=$(date +%s) 
+fi
 
 
 # Remove daily backups older than the retention period
 function daily() {
     cd "${OUTPUT_DIR}"
-    retentionCutoff=$(date -u -d "@$(($(date +%s) - ${DAILY_RETENTION}))" +%s) # get the unix timestamp for exactly 30 days ago
+    retentionCutoff=$(date -u -d "@$((${NOW} - ${DAILY_RETENTION}))" +%s) # get the unix timestamp for exactly 30 days ago
+    # retentionCutoff=$(date -u -d "@$(($(date +%s) - ${DAILY_RETENTION}))" +%s) # get the unix timestamp for exactly 30 days ago
     echo "${retentionCutoff}"
     for file in *-*-*_vw-data.tar; do
         fdate=$(echo $file | cut -d'_' -f1) # extract timestamp from filename
