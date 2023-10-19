@@ -8,10 +8,11 @@ WORKDIR /app
 
 # Add scripts
 ADD crontab.txt /crontab.txt
+ADD crontab-dev.txt /crontab-dev.txt
 ADD scripts/ /app/scripts/
 
 RUN chmod -R 755 /app/scripts/
-RUN /usr/bin/crontab /crontab.txt
+# RUN /usr/bin/crontab /crontab.txt
 
 # Add Packages
 RUN apk update && apk upgrade

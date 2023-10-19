@@ -1,5 +1,5 @@
-* * * * * /app/scripts/backup.sh "daily" >> /var/log/output.log
+0 0 * * * /app/scripts/backup.sh "daily" >> /var/log/output.log
 
-0/5 * * * * /app/scripts/backup.sh "weekly" >> /var/log/output.log
+0 0 * * 7 /app/scripts/backup.sh "weekly" >> /var/log/output.log
 
-0/10 * * * * /app/scripts/backup.sh "monthly" >> /var/log/output.log
+0 0 1 * * /app/scripts/backup.sh "monthly" >> /var/log/output.log
