@@ -18,9 +18,9 @@ function init() {
         mkdir -p "${OUTPUT_DIR}"
     fi
 
-    printf -- '-%.0s' $(seq 50); echo ""
+    printf -- '-%.0s' $(seq 52); echo ""
     echo "Running ${BACKUP_TYPE} backup at $(date)"
-    printf -- '-%.0s' $(seq 50); echo ""
+    printf -- '-%.0s' $(seq 52); echo ""
 }
 
 function clear_dir() {
