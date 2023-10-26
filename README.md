@@ -46,7 +46,7 @@ services:
       - vw-data:/data/
        
   backup:
-    image: aSouchereau/vaultwarden-backup-gfs:latest
+    image: asouchereau/vaultwarden-backup-gfs:latest
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/

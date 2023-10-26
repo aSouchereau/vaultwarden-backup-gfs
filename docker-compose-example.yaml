@@ -5,16 +5,13 @@ services:
   vaultwarden:
     image: vaultwarden/server:latest
     restart: always
-    # environment:
-    #   SIGNUPS_ALLOWED: 'false'
-    #   ADMIN_TOKEN: 'your authentication token'
     ports:
-      - '127.0.0.1:8080:80'
+      - '80:80'
     volumes:
       - vw-data:/data/
        
   backup:
-    image: aSouchereau/docker-vaultwarden-backup:latest
+    image: asouchereau/vaultwarden-backup-gfs:latest
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/
@@ -25,5 +22,5 @@ services:
 
 volumes:
   vw-data:
-    # Specify the name of the volume where you save the vaultwarden data,
+    # This volume is shared between the vaultwarden and backup containers
     name: vw-data
