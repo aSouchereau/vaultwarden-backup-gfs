@@ -18,7 +18,7 @@ vaultwarden-backup-gfs has three requirements:
 Once retention values are set and the correct volumes mounted, you can run the container with the following commands
 
 ~~~
-docker pull aSouchereau/vaultwarden-backup-gfs
+docker pull asouchereau/vaultwarden-backup-gfs
 
 docker run -d --name vaultwarden-backup-gfs \
 -v /vw-data/:/vaultwarden/data/ \
@@ -26,7 +26,7 @@ docker run -d --name vaultwarden-backup-gfs \
 -e DAILY_RETENTION=7 \
 -e WEEKLY_RETENTION=8 \
 -e MONTHLY_RETENTION=6 \ 
-aSouchereau/vaultwarden-backup-gfs
+asouchereau/vaultwarden-backup-gfs
 ~~~
 
 
