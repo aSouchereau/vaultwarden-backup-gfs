@@ -1,0 +1,26 @@
+name: Build and push to GHCR
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_ghcr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to ghcr.io
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Get version
+        run: |
+          export VERSION=$(cat version.txt)
+          echo "Version: $VERSION"  
+
+      - name: Build and tag image
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:$VERSION .
+
+      - name: Push image to GHCR
+        run: docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }} --all-tags

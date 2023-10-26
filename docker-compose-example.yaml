@@ -18,7 +18,10 @@ services:
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/
-    #   - /path/to/env:/.env
+    environment:
+      - DAILY_RETENTION=7
+      - WEEKLY_RETENTION=8
+      - MONTHLY_RETENTION=6
 
 volumes:
   vw-data:
