@@ -1,0 +1,29 @@
+name: Docker Hub Publish
+
+on:
+  push:
+    branches: [ "main" ]
+
+
+
+jobs:
+  push_dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: |
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Get version
+        run: |
+          export VERSION=$(cat version.txt)
+          echo "Version: $VERSION"    
+
+      - name: Build and tag image
+        run: docker build -t ${{ github.repository }}:$VERSION -f .
+
+      - name: Push image to Docker Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }} --all-tags
