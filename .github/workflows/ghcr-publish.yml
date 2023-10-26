@@ -4,6 +4,10 @@ on:
     branches:
       - main
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: asouchereau/vaultwarden-backup-gfs
+
 jobs:
   push_to_ghcr:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
           echo "Version: $VERSION"  
 
       - name: Build and tag image
-        run: docker build -t ghcr.io/${{ github.repository }}:$VERSION .
+        run: docker build -t $REGISTRY/$IMAGE:$VERSION .
 
       - name: Push image to GHCR
-        run: docker push ghcr.io/${{ github.repository }} --all-tags
+        run: docker push $REGISTRY/$IMAGE --all-tags
