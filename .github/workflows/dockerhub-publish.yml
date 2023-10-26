@@ -23,7 +23,7 @@ jobs:
           echo "Version: $VERSION"    
 
       - name: Build and tag image
-        run: docker build -t ${{ github.repository }}:$VERSION -f .
+        run: docker build -t ${{ github.repository }}:$VERSION .
 
       - name: Push image to Docker Hub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }} --all-tags
