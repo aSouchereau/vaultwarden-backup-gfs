@@ -26,7 +26,7 @@ jobs:
           echo "Version: $VERSION"    
 
       - name: Build and tag image
-        run: docker build -t $IMAGE_NAME:$VERSION .
+        run: docker build -t $IMAGE_NAME:$VERSION -t $IMAGE_NAME:latest .
 
       - name: Push image to GHCR
         run: docker push $IMAGE_NAME --all-tags
