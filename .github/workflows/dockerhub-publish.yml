@@ -20,6 +20,7 @@ jobs:
       - name: Get version
         run: |
           export VERSION=$(cat version.txt)
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "Version: $VERSION"    
 
       - name: Build and tag image
