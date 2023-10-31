@@ -17,7 +17,7 @@ function clear_output() {
 }
 
 if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
-    echo ""
+    echo "Creating mock backup files"
     clear_output
 
     while IFS= read -r filename; do
