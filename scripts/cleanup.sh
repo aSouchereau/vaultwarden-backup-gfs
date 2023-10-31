@@ -31,7 +31,7 @@ function cleanup() {
         fsec=$(date +%s --date=${fdate}) # convert filename timestamp into unix timestamp
 
         if [[ $fsec -lt $retentionCutoff ]]; then # remove file if timestamp older than retention cutoff
-            echo "rm $file"
+            rm $file
         fi
     done
 }
