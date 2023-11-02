@@ -17,6 +17,7 @@ function clear_output() {
 }
 
 if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
+    echo "Creating mock backup files"
     clear_output
 
     while IFS= read -r filename; do
@@ -31,6 +32,6 @@ if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
         touch "${OUTPUT_DIR}/monthly/${filename}"
     done < "monthly-filenames.txt"
 else
-    echo "Conditions not met, test script refuses to run. Check line 7 of /app/scripts/tests/cleanup_test.sh for details"
+    echo "Conditions not met, test script refuses to run. Check line 7 of /app/scripts/dev/populate_output.sh for details"
 fi
 

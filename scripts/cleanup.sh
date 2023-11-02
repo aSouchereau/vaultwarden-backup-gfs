@@ -1,4 +1,4 @@
-echo "Cleaning up expired backups"
+echo "cleaning up expired backups"
 
 # Set default backup minimums
 MIN_DAILY_BACKUPS="${MIN_DAILY_BACKUPS:-$DAILY_RETENTION}"
@@ -31,6 +31,7 @@ function cleanup() {
         fsec=$(date +%s --date=${fdate}) # convert filename timestamp into unix timestamp
 
         if [[ $fsec -lt $retentionCutoff ]]; then # remove file if timestamp older than retention cutoff
+            echo "Removed: $file"
             rm $file
         fi
     done

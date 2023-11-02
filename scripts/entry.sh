@@ -1,5 +1,15 @@
 #!/bin/sh
 
+function cleanup() {
+    echo "Stopping cron"
+    kill -TERM "$CRON_PID"
+
+    echo "Shutting down..."
+    exit 0
+}
+
+trap 'cleanup' SIGINT SIGTERM
+
 echo "╦  ╦╦ ╦       ╔╗ ╔═╗╔═╗╦╔═╦ ╦╔═╗       ╔═╗╔═╗╔═╗";
 echo "╚╗╔╝║║║  ───  ╠╩╗╠═╣║  ╠╩╗║ ║╠═╝  ───  ║ ╦╠╣ ╚═╗";
 echo " ╚╝ ╚╩╝       ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩         ╚═╝╚  ╚═╝";
@@ -22,4 +32,9 @@ fi
 
 # start cron
 echo "Starting cron"
-/usr/sbin/crond -f -l 8
+exec /usr/sbin/crond -f -l 8 &
+CRON_PID=$!
+
+while :; do
+    sleep 1s
+done
