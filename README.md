@@ -50,6 +50,7 @@ services:
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/
+      - vw-backups:/app/output
     environment:
       - DAILY_RETENTION=7
       - WEEKLY_RETENTION=8
@@ -59,6 +60,9 @@ volumes:
   vw-data:
     # This volume is shared between the vaultwarden and backup containers
     name: vw-data
+  vw-backups:
+    # This volume is used to store your archive files
+    name: vw-backups
 
 ~~~
 
