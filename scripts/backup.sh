@@ -24,7 +24,6 @@ function init() {
 }
 
 function clear_dir() {
-    # reset input directory for new backup
     if [ -d "$INPUT_DIR" ] ; then
         echo "removing previous input directory"
         rm -rf "${INPUT_DIR}"
