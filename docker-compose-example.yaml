@@ -15,7 +15,7 @@ services:
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/
-      - vw-backups:/app/output
+      - vw-backups:/vw-backups/output
     environment:
       - DAILY_RETENTION=7
       - WEEKLY_RETENTION=8

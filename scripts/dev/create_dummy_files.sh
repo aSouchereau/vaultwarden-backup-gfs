@@ -6,7 +6,7 @@
 
 # As a safety precaution, this script will only run when the APP_ENV is set to "dev", and the first argument passed set to "NUKEMYBACKUPS".
 
-OUTPUT_DIR=/app/output
+OUTPUT_DIR=/vw-backups/output
 
 function clear_output() {
     rm -rf "${OUTPUT_DIR}"
