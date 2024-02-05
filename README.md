@@ -12,7 +12,7 @@ Simple automatic Vaultwarden backups using the [Grandfather-Father-Son](https://
 vaultwarden-backup-gfs has three requirements:
 
 - Your Vaultwarden data folder or volume is mounted to `/vaultwarden/data`
-- An output folder mounted to `/app/output/`
+- An output folder mounted to `/vw-backups/output/`
 - `DAILY_RETENTION`, `WEEKLY_RETENTION`, and `MONTHLY_RETENTION` env variables are set
 
 Once retention values are set and the correct volumes mounted, you can run the container with the following commands
