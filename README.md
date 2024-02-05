@@ -22,7 +22,7 @@ docker pull asouchereau/vaultwarden-backup-gfs
 
 docker run -d --name vaultwarden-backup-gfs \
 -v /vw-data/:/vaultwarden/data/ \
--v /vw-backups/:/app/output/ \
+-v /vw-backups/:/vw-backups/output/ \
 -e DAILY_RETENTION=7 \
 -e WEEKLY_RETENTION=8 \
 -e MONTHLY_RETENTION=6 \ 
@@ -50,7 +50,7 @@ services:
     restart: always
     volumes:
       - vw-data:/vaultwarden/data/
-      - vw-backups:/app/output
+      - vw-backups:/vw-backups/output
     environment:
       - DAILY_RETENTION=7
       - WEEKLY_RETENTION=8
