@@ -30,7 +30,30 @@ else
     /usr/bin/crontab /crontab.txt
 fi
 
-# start cron
+# check if database is reachable
+DB_TYPE="${DB_TYPE:-"sqlite"}"
+case "$DB_TYPE" in
+    sqlite)
+        echo "sqlite"
+        ;;
+    mariadb)
+        result=$(mariadb --host $DB_HOST --port $DB_PORT \
+            --user $DB_USER -p$DB_PASSWORD $DB_DATABASE -e "SELECT VERSION();")
+            if [ $? -eq 0 ]; then
+                echo "Database connection successful"
+            else
+                echo $result
+                exit 1
+            fi
+        ;;
+    *)
+        echo "Invalid or unsupported database type \"$DB_TYPE\""
+        exit 1
+        ;;
+
+esac
+
+
 echo "Starting cron"
 exec /usr/sbin/crond -f -l 8 &
 CRON_PID=$!

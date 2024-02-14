@@ -18,6 +18,7 @@ RUN chmod -R 755 /app/scripts/
 RUN apk update && apk upgrade
 RUN apk add --no-cache \
   sqlite \
+  mariadb-client \
   rsync
 
 # forward script logs to docker log collector
