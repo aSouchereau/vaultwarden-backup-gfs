@@ -47,6 +47,10 @@ function backup_sqlite() {
     fi
 }
 
+function backup_mariadb() {
+    mariadb-dump -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
+}
+
 function backup_files() {
     echo "creating copy of files"
     rsync --recursive --partial --exclude="icon_cache" --exclude="tmp" --exclude="db.sqlite3" --exclude="db.sqlite3-shm" --exclude="db.sqlite3-wal" "${DATA_DIR}/" "${STAGING_DIR}/"
