@@ -12,7 +12,6 @@ function init() {
     export OUTPUT_DIR=/vw-backups/output/$BACKUP_TYPE
 
     export NOW="$(date "+%Y-%m-%d")"
-    TMP_SQLITE_DB_FILENAME="${STAGING_DIR}/db.${NOW}.sqlite3"
 
     if [ ! -d "$OUTPUT_DIR" ] ; then
         mkdir -p "${OUTPUT_DIR}"
@@ -36,9 +35,9 @@ function clear_dir() {
 
 function backup_sqlite() {
     echo "creating sqlite backup"
-    sqlite3 "${DATA_DIR}/db.sqlite3" ".backup '${TMP_SQLITE_DB_FILENAME}'"
+    sqlite3 "${DATA_DIR}/db.sqlite3" ".backup '${STAGING_DIR}/db.sqlite3'"
     echo "checking backup integrity"
-    if sqlite3 "${TMP_SQLITE_DB_FILENAME}" "pragma integrity_check;"; then
+    if sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"; then
         echo "sqlite backup finished successfully"
     else
         echo "Backup canceled: database file failed integrity check"
@@ -59,7 +58,6 @@ function backup_mariadb() {
 function backup_files() {
     echo "creating copy of files"
     rsync --recursive --partial --exclude="icon_cache" --exclude="tmp" --exclude="db.sqlite3" --exclude="db.sqlite3-shm" --exclude="db.sqlite3-wal" "${DATA_DIR}/" "${STAGING_DIR}/"
-    mv "${STAGING_DIR}/db.${NOW}.sqlite3" "${STAGING_DIR}/db.sqlite3"
 }
 
 function package() {
