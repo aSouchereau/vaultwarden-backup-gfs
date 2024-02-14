@@ -48,7 +48,7 @@ function backup_sqlite() {
 }
 
 function backup_mariadb() {
-    mariadb-dump -h $DB_HOST -p $DB_PORT -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
+    mariadb-dump -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
     if [ $? -eq 0 ]; then
         echo "Database backup successful"
     else
@@ -76,7 +76,17 @@ function cleanup() {
 init "$1"
 clear_dir
 
-backup_sqlite
+case "$DB_TYPE" in 
+    sqlite)
+        backup_sqlite
+    ;;
+    mariadb)
+        backup_mariadb
+    ;;
+    *)
+    ;;
+esac
+
 backup_files
 
 package
