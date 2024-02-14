@@ -35,11 +35,11 @@ function clear_dir() {
 }
 
 function backup_sqlite() {
-    echo "creating sqlite online backup"
+    echo "creating sqlite backup"
     sqlite3 "${DATA_DIR}/db.sqlite3" ".backup '${TMP_SQLITE_DB_FILENAME}'"
     echo "checking backup integrity"
     if sqlite3 "${TMP_SQLITE_DB_FILENAME}" "pragma integrity_check;"; then
-        echo "sqlite online backup finished successfully"
+        echo "sqlite backup finished successfully"
     else
         echo "Backup canceled: database file failed integrity check"
 
@@ -48,7 +48,12 @@ function backup_sqlite() {
 }
 
 function backup_mariadb() {
-    mariadb-dump -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
+    mariadb-dump -h $DB_HOST -p $DB_PORT -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
+    if [ $? -eq 0 ]; then
+        echo "Database backup successful"
+    else
+        exit 1
+    fi
 }
 
 function backup_files() {
