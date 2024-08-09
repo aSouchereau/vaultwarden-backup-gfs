@@ -1,7 +1,6 @@
 echo "cleaning up expired backups"
 
 # Optional env var... min backups should be same as retention period by default
-# Not sure why anyone would want to change these tbh, but the options there
 MIN_DAILY_BACKUPS="${MIN_DAILY_BACKUPS:-$DAILY_RETENTION}"
 MIN_WEEKLY_BACKUPS="${MIN_WEEKLY_BACKUPS:-$WEEKLY_RETENTION}"
 MIN_MONTHLY_BACKUPS="${MIN_MONTHLY_BACKUPS:-$MONTHLY_RETENTION}"

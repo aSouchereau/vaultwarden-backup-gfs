@@ -46,8 +46,8 @@ function backup_sqlite() {
     fi
 }
 
-function backup_mariadb() {
-    mariadb-dump -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
+function backup_mysql() {
+    mysqldump -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD --lock-tables $DB_DATABASE > $STAGING_DIR/db.sql
     if [ $? -eq 0 ]; then
         echo "Database backup successful"
     else
@@ -63,7 +63,6 @@ function backup_files() {
 function package() {
     echo "packaging backup"
     tar -cf "${OUTPUT_DIR}/${NOW}_vw-data.tar" -C "${STAGING_DIR}" .
-    echo "backup process complete"
 }
 
 function cleanup() {
@@ -78,8 +77,8 @@ case "$DB_TYPE" in
     sqlite)
         backup_sqlite
     ;;
-    mariadb)
-        backup_mariadb
+    mysql)
+        backup_mysql
     ;;
     *)
     ;;

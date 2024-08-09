@@ -36,8 +36,8 @@ case "$DB_TYPE" in
     sqlite)
         echo "sqlite"
         ;;
-    mariadb)
-        result=$(mariadb --host $DB_HOST --port $DB_PORT \
+    mysql)
+        result=$(mysql --host $DB_HOST --port $DB_PORT \
             --user $DB_USER -p$DB_PASSWORD $DB_DATABASE -e "SELECT VERSION();")
             if [ $? -eq 0 ]; then
                 echo "Database connection successful"
