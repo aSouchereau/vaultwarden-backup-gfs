@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.18.4
+ARG ALPINE_VERSION=3.20.2
 FROM alpine:${ALPINE_VERSION}
 LABEL Maintainer="Alex Souchereau"
 LABEL Description="Easy way to manage backups of your vaultwarden data"
