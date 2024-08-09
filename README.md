@@ -2,7 +2,7 @@
 
 Simple automatic Vaultwarden backups using the [Grandfather-Father-Son](https://www.backblaze.com/blog/better-backup-practices-what-is-the-grandfather-father-son-approach/)  approach.
 
-** This image currently only supports sqlite installations of Vaultwarden.
+** This image currently only supports sqlite and mysql/mariadb installations of Vaultwarden.
 
 ** This is a 3rd party project created independently by a user of Vaultwarden and is not associated with [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [Bitwarden](https://github.com/bitwarden), or Bitwarden Inc.
 
@@ -64,6 +64,39 @@ volumes:
     # This volume is used to store your archive files
     name: vw-backups
 
+~~~
+
+### Database
+#### sqlite
+By default, this image looks for a db.sqlite3 file in the top level of your mounted data directory. Set environment variable `DB_TYPE` to `sqlite` or leave it unset. 
+-#### MariaDB/MySQL
+For MySQL or MariaDB setups, this image requires your vaultwarden database credentials to connect and create a dump file. Set the following environment variables
+- `DB_TYPE` ("mysql")
+- `DB_HOST` (server address or name of docker container running db server)
+- `DB_PORT`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_DATABASE`
+
+For example:
+
+~~~
+  backup:
+    image: asouchereau/vaultwarden-backup-gfs:latest
+    restart: always
+    volumes:
+      - vw-data:/vaultwarden/data/
+      - vw-backups:/vw-backups/output
+    environment:
+      - DAILY_RETENTION: 7
+      - WEEKLY_RETENTION: 8
+      - MONTHLY_RETENTION: 6
+      - DB_TYPE: "mysql"
+      - DB_HOST: "mariadb"
+      - DB_PORT: "3306"
+      - DB_USER: "vwuser"
+      - DB_PASSWORD: "changeme"
+      - DB_DATABASE: "vaultwarden"
 ~~~
 
 
