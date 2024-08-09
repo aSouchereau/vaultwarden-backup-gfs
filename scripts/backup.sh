@@ -81,7 +81,7 @@ case "$DB_TYPE" in
         backup_mysql
     ;;
     *)
-      echo "[Error] Invalid database type. Skipping database backup..."
+      echo "[Warning] Invalid database type. Skipping database backup..."
     ;;
 esac
 

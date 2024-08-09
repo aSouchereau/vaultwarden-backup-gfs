@@ -36,7 +36,11 @@ DB_TYPE="${DB_TYPE:-"sqlite"}"
 case "$DB_TYPE" in
     sqlite)
         echo "Checking sqlite database"
-        sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"
+        if sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"; then
+            echo ""
+        else
+            echo "[Warning]: database file failed initial integrity check"
+        fi
         ;;
     mysql|mariadb)
         result=$(mysql --host $DB_HOST --port $DB_PORT \
