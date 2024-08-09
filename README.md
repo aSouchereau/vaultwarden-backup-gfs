@@ -69,7 +69,7 @@ volumes:
 ### Database
 #### sqlite
 By default, this image looks for a db.sqlite3 file in the top level of your mounted data directory. Set environment variable `DB_TYPE` to `sqlite` or leave it unset. 
--#### MariaDB/MySQL
+#### MariaDB/MySQL
 For MySQL or MariaDB setups, this image requires your vaultwarden database credentials to connect and create a dump file. Set the following environment variables
 - `DB_TYPE` ("mysql")
 - `DB_HOST` (server address or name of docker container running db server)
