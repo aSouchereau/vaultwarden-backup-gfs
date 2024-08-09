@@ -13,7 +13,7 @@ trap 'cleanup' SIGINT SIGTERM
 echo "╦  ╦╦ ╦       ╔╗ ╔═╗╔═╗╦╔═╦ ╦╔═╗       ╔═╗╔═╗╔═╗";
 echo "╚╗╔╝║║║  ───  ╠╩╗╠═╣║  ╠╩╗║ ║╠═╝  ───  ║ ╦╠╣ ╚═╗";
 echo " ╚╝ ╚╩╝       ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩         ╚═╝╚  ╚═╝";
-echo "v1.1.0";
+echo "v1.1.1";
 
 
 # populate output for dev testing
