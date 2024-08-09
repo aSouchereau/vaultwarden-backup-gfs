@@ -13,12 +13,13 @@ trap 'cleanup' SIGINT SIGTERM
 echo "╦  ╦╦ ╦       ╔╗ ╔═╗╔═╗╦╔═╦ ╦╔═╗       ╔═╗╔═╗╔═╗";
 echo "╚╗╔╝║║║  ───  ╠╩╗╠═╣║  ╠╩╗║ ║╠═╝  ───  ║ ╦╠╣ ╚═╗";
 echo " ╚╝ ╚╩╝       ╚═╝╩ ╩╚═╝╩ ╩╚═╝╩         ╚═╝╚  ╚═╝";
+echo "v1.1.0";
 
 
 # populate output for dev testing
-if [ "$APP_ENV" = "dev" ] && [ "$POPULATE_OUTPUT_ON_START" = true ]; then
+if [ "$APP_ENV" = "dev" ] && [ "$CREATE_DUMMY_FILES" = true ]; then
     cd /app/scripts/dev
-    sh populate_output.sh DELETEMYDATA
+    sh create_dummy_files.sh NUKEMYBACKUPS
 fi
 
 # load correct cron schedules depending on environment
@@ -30,7 +31,31 @@ else
     /usr/bin/crontab /crontab.txt
 fi
 
-# start cron
+# check if database is reachable
+DB_TYPE="${DB_TYPE:-"sqlite"}"
+case "$DB_TYPE" in
+    sqlite)
+        echo "Checking sqlite database"
+        sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"
+        ;;
+    mysql|mariadb)
+        result=$(mysql --host $DB_HOST --port $DB_PORT \
+            --user $DB_USER -p$DB_PASSWORD $DB_DATABASE -e "SELECT VERSION();")
+            if [ $? -eq 0 ]; then
+                echo "Database connection successful"
+            else
+                echo $result
+                exit 1
+            fi
+        ;;
+    *)
+        echo "Invalid or unsupported database type \"$DB_TYPE\""
+        exit 1
+        ;;
+
+esac
+
+
 echo "Starting cron"
 exec /usr/sbin/crond -f -l 8 &
 CRON_PID=$!

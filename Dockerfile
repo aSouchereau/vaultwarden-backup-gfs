@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.18.4
+ARG ALPINE_VERSION=3.20.2
 FROM alpine:${ALPINE_VERSION}
 LABEL Maintainer="Alex Souchereau"
 LABEL Description="Easy way to manage backups of your vaultwarden data"
@@ -18,6 +18,7 @@ RUN chmod -R 755 /app/scripts/
 RUN apk update && apk upgrade
 RUN apk add --no-cache \
   sqlite \
+  mariadb-client \
   rsync
 
 # forward script logs to docker log collector

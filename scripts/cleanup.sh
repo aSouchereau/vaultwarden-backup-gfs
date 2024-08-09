@@ -1,6 +1,6 @@
 echo "cleaning up expired backups"
 
-# Set default backup minimums
+# Optional env var... min backups should be same as retention period by default
 MIN_DAILY_BACKUPS="${MIN_DAILY_BACKUPS:-$DAILY_RETENTION}"
 MIN_WEEKLY_BACKUPS="${MIN_WEEKLY_BACKUPS:-$WEEKLY_RETENTION}"
 MIN_MONTHLY_BACKUPS="${MIN_MONTHLY_BACKUPS:-$MONTHLY_RETENTION}"
@@ -20,8 +20,7 @@ else
 fi
 
 
-# Remove backups older than the retention period
-function cleanup() {
+function clean_expired_backups() {
     cd "${OUTPUT_DIR}"
     retentionCutoff=$(date -u -d "@$((${NOW} - ${1} ))" +%s) # get epoch time for cutoff date of provided retention period
     excessFiles=$(find "$OUTPUT_DIR" -maxdepth 1 -type f -name '*-*-*_vw-data.tar' -exec basename {} \; | sort -r | tail -n +$((${2} + 1)))
@@ -40,13 +39,13 @@ function cleanup() {
 
 case "$BACKUP_TYPE" in
     daily)
-        cleanup "$DAILY_RETENTION" "$MIN_DAILY_BACKUPS"
+        clean_expired_backups "$DAILY_RETENTION" "$MIN_DAILY_BACKUPS"
         ;;
     weekly)
-        cleanup "$WEEKLY_RETENTION" "$MIN_WEEKLY_BACKUPS"
+        clean_expired_backups "$WEEKLY_RETENTION" "$MIN_WEEKLY_BACKUPS"
         ;;
     monthly)
-        cleanup "$MONTHLY_RETENTION" "$MIN_MONTHLY_BACKUPS"
+        clean_expired_backups "$MONTHLY_RETENTION" "$MIN_MONTHLY_BACKUPS"
         ;;
     *)
         echo "Invalid backup type. Skipping cleanup"

@@ -4,9 +4,9 @@
 
 # WARNING: This script will affect data in the output folder. Do not use it in production
 
-# As a safety precaution, this script will only run when the APP_ENV is set to "dev", and the first argument passed set to "DELETEMYDATA".
+# As a safety precaution, this script will only run when the APP_ENV is set to "dev", and the first argument passed set to "NUKEMYBACKUPS".
 
-OUTPUT_DIR=/app/output
+OUTPUT_DIR=/vw-backups/output
 
 function clear_output() {
     rm -rf "${OUTPUT_DIR}"
@@ -16,7 +16,7 @@ function clear_output() {
     mkdir "${OUTPUT_DIR}/monthly"
 }
 
-if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
+if [ "$APP_ENV" = "dev" ] && [ "$1" = "NUKEMYBACKUPS" ]; then
     echo "Creating mock backup files"
     clear_output
 
@@ -32,6 +32,6 @@ if [ "$APP_ENV" = "dev" ] && [ "$1" = "DELETEMYDATA" ]; then
         touch "${OUTPUT_DIR}/monthly/${filename}"
     done < "monthly-filenames.txt"
 else
-    echo "Conditions not met, test script refuses to run. Check line 7 of /app/scripts/dev/populate_output.sh for details"
+    echo "Conditions not met, script refuses to run. Check line 7 of /app/scripts/dev/create_dummy_files.sh for details"
 fi
 
