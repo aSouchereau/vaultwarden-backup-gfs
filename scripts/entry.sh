@@ -37,7 +37,7 @@ case "$DB_TYPE" in
         echo "Checking sqlite database"
         sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"
         ;;
-    mysql)
+    mysql|mariadb)
         result=$(mysql --host $DB_HOST --port $DB_PORT \
             --user $DB_USER -p$DB_PASSWORD $DB_DATABASE -e "SELECT VERSION();")
             if [ $? -eq 0 ]; then

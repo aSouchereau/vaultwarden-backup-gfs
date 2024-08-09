@@ -77,10 +77,11 @@ case "$DB_TYPE" in
     sqlite)
         backup_sqlite
     ;;
-    mysql)
+    mysql|mariadb)
         backup_mysql
     ;;
     *)
+      echo "[Error] Invalid database type. Skipping database backup..."
     ;;
 esac
 
