@@ -34,7 +34,8 @@ fi
 DB_TYPE="${DB_TYPE:-"sqlite"}"
 case "$DB_TYPE" in
     sqlite)
-        echo "sqlite"
+        echo "Checking sqlite database"
+        sqlite3 "${STAGING_DIR}/db.sqlite3" "pragma integrity_check;"
         ;;
     mysql)
         result=$(mysql --host $DB_HOST --port $DB_PORT \
